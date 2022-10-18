@@ -180,8 +180,13 @@ void rb_insert(rb_node **rootptr, int key){
         if(key < x->key){
             x = x->left;
         }
-        else{
+        else if(key > x->key){
             x = x->right;
+        }
+        else{
+            printf("Duplicate key = %d error!\n", key);
+            free(z);
+            return;
         }
     }
     z->parent = y;

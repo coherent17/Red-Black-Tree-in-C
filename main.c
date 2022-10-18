@@ -1,4 +1,6 @@
 #include "RBT.h"
+#include <stdlib.h>
+#include <time.h>
 
 int main(){
 
@@ -117,8 +119,30 @@ int main(){
     rb_insert(&r2, 8);
     rb_insert(&r2, 4);
     rb_insert(&r2, 9);  //case4
-    rb_printRBT(r2);
+    //rb_printRBT(r2);
     rb_freeRBT(r2);
 
+
+    //test for duplicate key error:
+    rb_node *r3 = NULL;
+    rb_insert(&r3, 2);
+    rb_insert(&r3, 1);
+    rb_insert(&r3, 2);
+    rb_insert(&r3, 3);
+    rb_insert(&r3, 2);
+    rb_insert(&r3, 3);
+    rb_insert(&r3, 1);
+    //rb_printRBT(r3);
+    rb_freeRBT(r3);
+
+    //test for large input:
+    rb_node *r4 = NULL;
+    srand(time(NULL));
+    int count = 1000000;
+    int i;
+    for(i = 0; i < count; i++){
+        rb_insert(&r4, rand());
+    }
+    rb_freeRBT(r4);
     return 0;
 }
