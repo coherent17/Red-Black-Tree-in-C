@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define PRINT_DUPLICATE_MSG 1
+
 rb_node *rb_newNode(int key){
     rb_node *newnode = malloc(sizeof(rb_node));
     newnode->key = key;
@@ -184,7 +186,9 @@ void rb_insert(rb_node **rootptr, int key){
             x = x->right;
         }
         else{
-            printf("Duplicate key = %d error!\n", key);
+            if(PRINT_DUPLICATE_MSG){
+                printf("Duplicate key = %d error!\n", key);
+            }
             free(z);
             return;
         }
@@ -207,6 +211,15 @@ void rb_insert(rb_node **rootptr, int key){
     //call rb_insert_fixup to maintain red black tree property
     rb_insert_FixUp(rootptr, z);
 }
+
+//calculate max height of the red black tree
+int rb_max_height(rb_node *root){
+    if(root == NULL) return 0;
+    int max_left = rb_max_height(root->left);
+    int max_right = rb_max_height(root->right);
+    int result = max_left > max_right ? max_left + 1 : max_right + 1;
+    return result;
+} 
 
 
 //--------------------------<output part>----------------------------

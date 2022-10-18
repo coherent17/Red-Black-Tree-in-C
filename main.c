@@ -1,4 +1,5 @@
 #include "RBT.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -81,7 +82,9 @@ int main(){
     rb_insert(&r1, 4);  //case5 + case6
     rb_insert(&r1, 0);  //case1
     rb_insert(&r1, 2);  //case2 + case3
-    //rb_printRBT(r1);
+    rb_printRBT(r1);
+    int h1 = rb_max_height(r1);
+    printf("h1 = %d\n", h1);
     rb_freeRBT(r1);
 
 
@@ -119,7 +122,9 @@ int main(){
     rb_insert(&r2, 8);
     rb_insert(&r2, 4);
     rb_insert(&r2, 9);  //case4
-    //rb_printRBT(r2);
+    rb_printRBT(r2);
+    int h2 = rb_max_height(r2);
+    printf("h2 = %d\n", h2);
     rb_freeRBT(r2);
 
 
@@ -132,7 +137,9 @@ int main(){
     rb_insert(&r3, 2);
     rb_insert(&r3, 3);
     rb_insert(&r3, 1);
-    //rb_printRBT(r3);
+    rb_printRBT(r3);
+    int h3 = rb_max_height(r3);
+    printf("h3 = %d\n", h3);
     rb_freeRBT(r3);
 
     //test for large input:
@@ -143,6 +150,8 @@ int main(){
     for(i = 0; i < count; i++){
         rb_insert(&r4, rand());
     }
+    int h4 = rb_max_height(r4);
+    printf("h4 = %d\n", h4);
     rb_freeRBT(r4);
     return 0;
 }

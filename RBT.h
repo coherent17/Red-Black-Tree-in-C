@@ -18,6 +18,7 @@ typedef struct _rb_node{
 
 
 void rb_insert(rb_node **rootptr, int key);
+int rb_max_height(rb_node *root);
 void rb_printRBT(rb_node *root);
 void rb_inorder_traversal(rb_node *root);
 void rb_freeRBT(rb_node *root);
