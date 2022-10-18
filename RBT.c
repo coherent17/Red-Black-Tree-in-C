@@ -248,21 +248,21 @@ void printTreeRecursive(rb_node *root, int level){
     printf("Done\n");
 }
 
-void printTree(rb_node *root){
+void rb_printRBT(rb_node *root){
     printf("\n\n");
     printTreeRecursive(root, 0);
 }
 
-void inorder(rb_node *root){
+void rb_inorder_traversal(rb_node *root){
     if(!root) return;
-    inorder(root->left);
+    rb_inorder_traversal(root->left);
     printf("%d ", root->key);
-    inorder(root->right);
+    rb_inorder_traversal(root->right);
 }
 
-void freeRBT(rb_node *root){
+void rb_freeRBT(rb_node *root){
     if(root == NULL) return;
-    freeRBT(root->left);
-    freeRBT(root->right);
+    rb_freeRBT(root->left);
+    rb_freeRBT(root->right);
     free(root);
 }

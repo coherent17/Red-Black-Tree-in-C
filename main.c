@@ -8,10 +8,10 @@ int main(){
     rb_insert(&root, 40);
     rb_insert(&root, 50);
 
-    inorder(root);
-    printTree(root);
-    freeRBT(root);
 
-
+    rb_printRBT(root);
+    rb_inorder_traversal(root);
+    printf("\n");
+    rb_freeRBT(root);
     return 0;
 }
