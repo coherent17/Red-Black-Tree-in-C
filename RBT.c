@@ -90,7 +90,8 @@ void rb_right_rotate(rb_node **rootptr, rb_node *y){
 
 //maintain red-black property after rb_insert called
 void rb_insert_FixUp(rb_node **rootptr, rb_node *z){
-    while(z != *rootptr && z->parent->color == RED){
+
+    while((z != *rootptr) && (z->parent->color == RED)){
 
         if(z->parent == z->parent->parent->left){
             rb_node *y = z->parent->parent->right;
@@ -131,7 +132,7 @@ void rb_insert_FixUp(rb_node **rootptr, rb_node *z){
         else{
             rb_node *y = z->parent->parent->left;
 
-            //case1: if uncle is RED
+            //case4 (symmetry to case1): if uncle is RED
             //parent and uncle color change to BLACK
             //grandparent color change to RED
             //Moze z to grandparent
@@ -144,16 +145,16 @@ void rb_insert_FixUp(rb_node **rootptr, rb_node *z){
 
             //uncle is BLACK:
             else{
-                //case2: z is a left child
+                //case5 (symmetry to case2): z is a left child
                 //Move z to parent
                 //right-rotate(z)
                 //turn into case 3
                 if(z == z->parent->left){
                     z = z->parent;
-                    rb_right_rotate(rootptr, y);
+                    rb_right_rotate(rootptr, z);
                 }
 
-                //case3: z is a right child
+                //case6 (symmetry to case3): z is a right child
                 //parent change to BLACK
                 //grandparent change to RED
                 //left-rotate(grandparent)
@@ -170,13 +171,6 @@ void rb_insert_FixUp(rb_node **rootptr, rb_node *z){
 void rb_insert(rb_node **rootptr, int key){
     rb_node *z = rb_newNode(key);
 
-    //if root is NULL, make z as root
-    if(*rootptr == NULL){
-        *rootptr = z;
-        z->color = BLACK;   //root's color = black
-        return;
-    }
-
     rb_node *y = NULL;      //y track the parent of x
     rb_node *x = *rootptr;
 
@@ -190,9 +184,14 @@ void rb_insert(rb_node **rootptr, int key){
             x = x->right;
         }
     }
-
     z->parent = y;
-    if(key > y->key){
+
+    //if the rb tree is empty
+    if(y == NULL){
+        *rootptr = z;
+    }
+
+    else if(key > y->key){
         y->right = z;
     }
     else{
@@ -204,6 +203,8 @@ void rb_insert(rb_node **rootptr, int key){
     rb_insert_FixUp(rootptr, z);
 }
 
+
+//--------------------------<output part>----------------------------
 void printTabs(int numtabs){
     int i;
     for (i = 0; i < numtabs;i++){
@@ -218,6 +219,7 @@ void printTreeRecursive(rb_node *root, int level){
         return;
     }
 
+    //print out the value/color/parent of the node 
     printTabs(level);
     printf("value = %d, ", root->key);
 
@@ -227,7 +229,6 @@ void printTreeRecursive(rb_node *root, int level){
     else{
         printf("color = RED, ");
     }
-
 
     if(root->parent){
         printf("parent value = %d", root->parent->key);
